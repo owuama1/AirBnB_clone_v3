@@ -10,10 +10,12 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 
+
 @app_views.route("/status", methods=["GET"])
 def status():
     """Return status OK"""
     return jsonify({"status": "OK"})
+
 
 @app_views.route("/stats", methods=["GET"])
 def stats():
