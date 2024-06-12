@@ -15,6 +15,7 @@ from models.user import User
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
 
+
 class FileStorage:
     """serializes instances to a JSON file & deserializes back to instances"""
 
@@ -52,7 +53,7 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except Exception as e:
             pass
 
     def delete(self, obj=None):
@@ -76,6 +77,8 @@ class FileStorage:
     def count(self, cls=None):
         """Count the number of objects in storage"""
         if cls:
-            count = sum(1 for obj in self.__objects.values() if isinstance(obj, cls))
+            count = sum(
+                1 for obj in self.__objects.values() if isinstance(obj, cls)
+            )
             return count
         return len(self.__objects)
